@@ -56,12 +56,18 @@ export function transformUsersToDepartment(users: User[]): DepartmentGroup {
 
   const result: DepartmentGroup = {};
 
-  for (const departmentName of Object.keys(departmentMap)) {
+  for (const departmentName in departmentMap) {
     const d = departmentMap[departmentName];
+
+    const ageRange =
+      d.minAge === Number.MAX_SAFE_INTEGER || d.maxAge === Number.MIN_SAFE_INTEGER
+        ? 'N/A'
+        : `${d.minAge}-${d.maxAge}`;
+
     const stats: DepartmentStats = {
       male: d.maleCount,
       female: d.femaleCount,
-      ageRange: `${d.minAge}-${d.maxAge}`,
+      ageRange: ageRange,
       hair: { ...d.hairCount },
       addressUser: { ...d.addressUser },
     };

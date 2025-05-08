@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1746682222679" clover="3.2.0">
-  <project timestamp="1746682222679" name="All files">
-    <metrics statements="28" coveredstatements="28" conditionals="7" coveredconditionals="7" methods="2" coveredmethods="2" elements="37" coveredelements="37" complexity="0" loc="28" ncloc="28" packages="1" files="1" classes="1"/>
+<coverage generated="1746684812553" clover="3.2.0">
+  <project timestamp="1746684812553" name="All files">
+    <metrics statements="29" coveredstatements="29" conditionals="11" coveredconditionals="10" methods="2" coveredmethods="2" elements="42" coveredelements="41" complexity="0" loc="29" ncloc="29" packages="1" files="1" classes="1"/>
     <file name="transformation.ts" path="C:\assignment\create-data-from-api\src\transformation.ts">
-      <metrics statements="28" coveredstatements="28" conditionals="7" coveredconditionals="7" methods="2" coveredmethods="2"/>
+      <metrics statements="29" coveredstatements="29" conditionals="11" coveredconditionals="10" methods="2" coveredmethods="2"/>
       <line num="13" count="2" type="stmt"/>
       <line num="23" count="1" type="stmt"/>
       <line num="24" count="1" type="stmt"/>
@@ -29,9 +29,10 @@
       <line num="57" count="1" type="stmt"/>
       <line num="59" count="1" type="stmt"/>
       <line num="60" count="2" type="stmt"/>
-      <line num="61" count="2" type="stmt"/>
-      <line num="68" count="2" type="stmt"/>
-      <line num="71" count="1" type="stmt"/>
+      <line num="63" count="2" type="cond" truecount="3" falsecount="1"/>
+      <line num="67" count="2" type="stmt"/>
+      <line num="74" count="2" type="stmt"/>
+      <line num="77" count="1" type="stmt"/>
     </file>
   </project>
 </coverage>
