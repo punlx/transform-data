@@ -13,8 +13,8 @@ function initializeDeptStats(): InternalDepartmentStats {
   return {
     maleCount: 0,
     femaleCount: 0,
-    minAge: Number.MAX_SAFE_INTEGER,
-    maxAge: Number.MIN_SAFE_INTEGER,
+    minAge: undefined as unknown as number,
+    maxAge: undefined as unknown as number,
     hairCount: {},
     addressUser: {},
   };
@@ -30,48 +30,36 @@ export function transformUsersToDepartment(users: User[]): DepartmentGroup {
     }
 
     const deptStats = departmentMap[dept];
+    const gender = user.gender.toLowerCase();
+    if (gender === 'male') deptStats.maleCount++;
+    else if (gender === 'female') deptStats.femaleCount++;
 
-    if (user.gender.toLowerCase() === 'male') {
-      deptStats.maleCount++;
-    } else if (user.gender.toLowerCase() === 'female') {
-      deptStats.femaleCount++;
-    }
-
-    if (user.age < deptStats.minAge) {
+    if (deptStats.minAge === undefined || user.age < deptStats.minAge) {
       deptStats.minAge = user.age;
     }
-    if (user.age > deptStats.maxAge) {
+    if (deptStats.maxAge === undefined || user.age > deptStats.maxAge) {
       deptStats.maxAge = user.age;
     }
 
     const hairColor = user.hair.color;
-    if (!deptStats.hairCount[hairColor]) {
-      deptStats.hairCount[hairColor] = 0;
-    }
-    deptStats.hairCount[hairColor]++;
+    deptStats.hairCount[hairColor] = (deptStats.hairCount[hairColor] ?? 0) + 1;
 
     const fullName = `${user.firstName}${user.lastName}`;
     deptStats.addressUser[fullName] = user.address.postalCode;
   }
 
   const result: DepartmentGroup = {};
-
-  for (const departmentName in departmentMap) {
-    const d = departmentMap[departmentName];
-
+  for (const [departmentName, d] of Object.entries(departmentMap)) {
     const ageRange =
-      d.minAge === Number.MAX_SAFE_INTEGER || d.maxAge === Number.MIN_SAFE_INTEGER
-        ? 'N/A'
-        : `${d.minAge}-${d.maxAge}`;
+      d.minAge === undefined || d.maxAge === undefined ? 'N/A' : `${d.minAge}-${d.maxAge}`;
 
-    const stats: DepartmentStats = {
+    result[departmentName] = {
       male: d.maleCount,
       female: d.femaleCount,
-      ageRange: ageRange,
-      hair: { ...d.hairCount },
-      addressUser: { ...d.addressUser },
+      ageRange,
+      hair: d.hairCount,
+      addressUser: d.addressUser,
     };
-    result[departmentName] = stats;
   }
 
   return result;
