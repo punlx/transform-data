@@ -42,7 +42,10 @@ export function transformUsersToDepartment(users: User[]): DepartmentGroup {
     }
 
     const hairColor = user.hair.color;
-    deptStats.hairCount[hairColor] = (deptStats.hairCount[hairColor] ?? 0) + 1;
+    if (!deptStats.hairCount[hairColor]) {
+      deptStats.hairCount[hairColor] = 0;
+    }
+    deptStats.hairCount[hairColor]++;
 
     const fullName = `${user.firstName}${user.lastName}`;
     deptStats.addressUser[fullName] = user.address.postalCode;
